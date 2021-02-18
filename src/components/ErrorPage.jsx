@@ -7,7 +7,7 @@ export default function ErrorPage() {
       <h1>Page Not Found :(</h1>
       <img
         alt="TubbyNuggetGIF"
-        src="https://rb.gy/qnfmja"
+        src="https://media2.giphy.com/media/TiCpCknRXo0riYM94I/giphy.gif"
         width="300"
         height="300"
         className="tubbyNugget"

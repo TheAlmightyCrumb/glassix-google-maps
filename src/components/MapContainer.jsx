@@ -19,7 +19,6 @@ export default function MapContainer() {
   const getIp = useCallback(async () => {
     try {
       const data = await ipdata.lookup();
-      console.log("data: ", data);
       setUserData(data);
     } catch (e) {
       setShowError(true);
@@ -48,7 +47,7 @@ export default function MapContainer() {
   if (!userData) {
     return <PageLoader isVisible={!showError} />;
   }
-  
+
   if (showError) {
     return <ErrorPage />;
   }
