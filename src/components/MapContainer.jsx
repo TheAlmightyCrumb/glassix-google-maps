@@ -19,6 +19,7 @@ export default function MapContainer() {
   const getIp = useCallback(async () => {
     try {
       const data = await ipdata.lookup();
+      checkData(data);
       setUserData(data);
     } catch (e) {
       setShowError(true);
@@ -28,6 +29,22 @@ export default function MapContainer() {
   useEffect(() => {
     getIp();
   }, []);
+
+  const checkData = (data) => {
+    if (!data.latitude || !data.longitude || !data.country_name || !data.city) {
+      setShowError(true);
+      data.message &&
+        console.log(
+          "%cAPI MESSAGE!",
+          "font-weight: bold; background-color: red; color: yellow; padding: 1px 3px;",
+          data.message
+        );
+      console.log(
+        "%cProbably there is a problem with the api keys - quota exceeded and so on",
+        "font-weight: bold; background-color: red; color: yellow; padding: 1px 3px;"
+      );
+    }
+  };
 
   const mapStyles = {
     height: "70vh",
@@ -64,7 +81,9 @@ export default function MapContainer() {
 
   return (
     <>
-      <h1 id="welcome">{coffeeImage} Welcome! {coffeeImage}</h1>
+      <h1 id="welcome">
+        {coffeeImage} Welcome! {coffeeImage}
+      </h1>
       <div id="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_KEY}>
           <GoogleMap
@@ -83,14 +102,18 @@ export default function MapContainer() {
           </GoogleMap>
         </LoadScript>
         <table className="geo-info">
-          <tr className="geo-headers">
-            <th>Country</th>
-            <th>City</th>
-          </tr>
-          <tr>
-            <td>{userData.country_name}</td>
-            <td>{userData.city}</td>
-          </tr>
+          <thead>
+            <tr className="geo-headers">
+              <th>Country</th>
+              <th>City</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{userData.country_name}</td>
+              <td>{userData.city}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </>

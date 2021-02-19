@@ -12,7 +12,10 @@ export default function ErrorPage() {
         height="300"
         className="tubbyNugget"
       />
-      <div>An error has occurred...</div>
+      <div>
+        An error has occurred. <br /> Please check the console tab in your
+        dev-tools for more specific information
+      </div>
     </>
   );
 }
